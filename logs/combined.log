@@ -1,2 +1,6 @@
 {"level":"info","message":"Hello from SaaS API","service":"saas-api"}
 {"level":"info","message":"::ffff:127.0.0.1 - - [06/May/2026:18:14:48 +0000] \"GET / HTTP/1.1\" 304 - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:150.0) Gecko/20100101 Firefox/150.0\"","service":"saas-api"}
+{"level":"info","message":"Hello from SaaS API","service":"saas-api"}
+{"level":"info","message":"::1 - - [06/May/2026:18:28:53 +0000] \"GET / HTTP/1.1\" 200 20 \"-\" \"PostmanRuntime/7.51.1\"","service":"saas-api"}
+{"level":"info","message":"::1 - - [06/May/2026:18:29:00 +0000] \"GET /health HTTP/1.1\" 200 75 \"-\" \"PostmanRuntime/7.51.1\"","service":"saas-api"}
+{"level":"info","message":"::1 - - [06/May/2026:18:58:19 +0000] \"POST /api/auth/sign-up HTTP/1.1\" 400 91 \"-\" \"PostmanRuntime/7.51.1\"","service":"saas-api"}
