@@ -1,24 +1,20 @@
-version: '3.8'
-
 services:
   # Neon Local Database Proxy
   neon-local:
     image: neondatabase/neon_local:latest
-    container_name: acquisitions-neon-local
+    container_name: acquisition-neon-local
     ports:
       - '5432:5432'
     env_file:
       - .env.development
-    environment:
-      - DATABASE_URL=postgres://neon:npg@neon-local:5432/neondb?sslmode=disable
     volumes:
       # Optional: Persist branches per Git branch
       - ./.neon_local/:/tmp/.neon_local
       - ./.git/HEAD:/tmp/.git/HEAD:ro,consistent
     networks:
-      - acquisitions-network
+      - acquisition-network
     healthcheck:
-      test: [ 'CMD', 'pg_isready', '-h', 'localhost', '-p', '5432', '-U', 'neon' ]
+      test: ['CMD', 'pg_isready', '-h', 'localhost', '-p', '5432', '-U', 'neon']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -30,13 +26,11 @@ services:
       context: .
       dockerfile: Dockerfile
       target: development
-    container_name: acquisitions-app-dev
+    container_name: acquisition-app-dev
     ports:
       - '3000:3000'
     env_file:
       - .env.development
-    environment:
-      - DATABASE_URL=postgres://neon:npg@neon-local:5432/neondb?sslmode=disable
     volumes:
       # Mount source code for hot reload
       - ./src:/app/src:ro
@@ -44,7 +38,7 @@ services:
       # Exclude node_modules to prevent conflicts
       - /app/node_modules
     networks:
-      - acquisitions-network
+      - acquisition-network
     depends_on:
       neon-local:
         condition: service_healthy
@@ -52,14 +46,20 @@ services:
     stdin_open: true
     tty: true
     healthcheck:
-      test: [ 'CMD', 'node', '-e', "const http = require('http'); const req = http.request({hostname: 'localhost', port: 5173, path: '/health'}, (res) => process.exit(res.statusCode === 200 ? 0 : 1)); req.on('error', () => process.exit(1)); req.end();" ]
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "const http = require('http'); const req = http.request({hostname: 'localhost', port: 3000, path: '/health'}, (res) => process.exit(res.statusCode === 200 ? 0 : 1)); req.on('error', () => process.exit(1)); req.end();",
+        ]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
 
 networks:
-  acquisitions-network:
+  acquisition-network:
     driver: bridge
 
 volumes:
