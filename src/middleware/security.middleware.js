@@ -10,6 +10,7 @@ const securityMiddleware = async (req, res, next) => {
     const isPostman = userAgent.includes('PostmanRuntime');
 
     if (isDev) {
+      console.log('🛡️ Arcjet Bypass Active (Dev Mode)');
       return next();
     }
 
