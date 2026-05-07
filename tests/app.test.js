@@ -16,7 +16,7 @@ describe('API Endpoint', () => {
         it('should return API status', async () => {
             const response = await request(app).get('/api').expect(200);
 
-            expect(response.body).toHaveProperty('message', 'Deal Service is running!');
+            expect(response.body).toHaveProperty('message', 'Auth API is running!');
         })
     });
 

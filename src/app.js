@@ -21,9 +21,9 @@ app.use(morgan('combined', { stream: { write: (message) => logger.info(message.t
 app.use(securityMiddleware);
 
 app.get('/', (req, res) => {
-  logger.info('Hello from SaaS API');
+  logger.info('Hello from Auth API');
 
-  res.status(200).send('Hello from SaaS API!');
+  res.status(200).send('Hello from Auth API!');
 });
 
 app.get('/health', (req, res) => {
@@ -37,7 +37,7 @@ app.get('/health', (req, res) => {
 });
 
 app.get('/api', (req, res) => {
-  res.status(200).json({ message: 'Deal Service is running!' });
+  res.status(200).json({ message: 'Auth API is running!' });
 });
 
 app.use('/api/auth', authRoutes);

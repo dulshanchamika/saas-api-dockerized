@@ -2,7 +2,7 @@ services:
   # Neon Local Database Proxy
   neon-local:
     image: neondatabase/neon_local:latest
-    container_name: acquisition-neon-local
+    container_name: auth-neon-local
     ports:
       - '5432:5432'
     env_file:
@@ -12,7 +12,7 @@ services:
       - ./.neon_local/:/tmp/.neon_local
       - ./.git/HEAD:/tmp/.git/HEAD:ro,consistent
     networks:
-      - acquisition-network
+      - auth-network
     healthcheck:
       test: ['CMD', 'pg_isready', '-h', 'localhost', '-p', '5432', '-U', 'neon']
       interval: 10s
@@ -26,7 +26,7 @@ services:
       context: .
       dockerfile: Dockerfile
       target: development
-    container_name: acquisition-app-dev
+    container_name: auth-app-dev
     ports:
       - '3000:3000'
     env_file:
@@ -38,7 +38,7 @@ services:
       # Exclude node_modules to prevent conflicts
       - /app/node_modules
     networks:
-      - acquisition-network
+      - auth-network
     depends_on:
       neon-local:
         condition: service_healthy
@@ -59,7 +59,7 @@ services:
       start_period: 40s
 
 networks:
-  acquisition-network:
+  auth-network:
     driver: bridge
 
 volumes:
