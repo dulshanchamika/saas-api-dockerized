@@ -11,6 +11,21 @@ const securityMiddleware = async (req, res, next) => {
       return next();
     }
 
+    // Role-based logic from your WSL version
+    const role = req.user?.role || 'guest';
+    let limit;
+    switch (role) {
+      case 'admin':
+        limit = 20;
+        break;
+      case 'user':
+        limit = 10;
+        break;
+      case 'guest':
+        limit = 5;
+        break;
+    }
+
     const decision = await aj.protect(req);
 
     if (decision.isDenied()) {
