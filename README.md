@@ -51,23 +51,30 @@ A production-ready, fully Dockerized Authentication Microservice built with Node
 ## 🏗️ Getting Started
 
 ### 1. Clone the repository
+
 ```bash
 git clone https://github.com/dulshanchamika/saas-api.git
 cd saas-api
 ```
 
 ### 2. Configure Environment Variables
+
 Copy the example environment file and fill in your credentials:
+
 ```bash
 cp .env.example .env.development
 ```
+
 Edit `.env.development`:
+
 - `NEON_API_KEY`: Your Neon API key.
 - `NEON_PROJECT_ID`: Your Neon project ID.
 - `ARCJET_KEY`: Your Arcjet application key.
 
 ### 3. Run in Development Mode
+
 The easiest way to start is using the provided development script:
+
 ```bash
 # On Linux/macOS
 ./scripts/dev.sh
@@ -75,7 +82,9 @@ The easiest way to start is using the provided development script:
 # Or using npm
 npm run dev:docker
 ```
+
 This will:
+
 - Spin up the `auth-neon-local` proxy.
 - Create an ephemeral database branch.
 - Start the application with hot-reload at `http://localhost:3000`.
@@ -85,6 +94,7 @@ This will:
 ## 🧪 Running Tests
 
 The project includes a comprehensive test suite covering routes and security middleware.
+
 ```bash
 # Run all tests
 npm test
@@ -101,10 +111,13 @@ For production, the app connects directly to the Neon Cloud database without the
 
 1. Prepare `.env.production`.
 2. Run the production script:
+
 ```bash
 ./scripts/prod.sh
 ```
+
 Or manually:
+
 ```bash
 docker compose -f docker-compose.prod.yml up -d --build
 ```
@@ -114,11 +127,13 @@ docker compose -f docker-compose.prod.yml up -d --build
 ## 🛣️ API Endpoints
 
 ### Auth
+
 - `POST /api/auth/sign-up` - Create a new account.
 - `POST /api/auth/sign-in` - Authenticate and get session.
 - `POST /api/auth/sign-out` - Clear session cookies.
 
 ### Users
+
 - `GET /api/users` - List all users (Admin only).
 - `GET /api/users/:id` - Get user profile.
 - `PUT /api/users/:id` - Update user profile.
