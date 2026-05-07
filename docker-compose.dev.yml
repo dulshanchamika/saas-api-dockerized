@@ -35,6 +35,8 @@ services:
       - '5173:5173'
     env_file:
       - .env.development
+    environment:
+      - DATABASE_URL=postgres://neon:npg@neon-local:5432/neondb?sslmode=disable
     volumes:
       # Mount source code for hot reload
       - ./src:/app/src:ro
